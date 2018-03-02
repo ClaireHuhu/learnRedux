@@ -1,17 +1,26 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
-class Counter extends React.Component {
+class CounterUI extends React.Component {
     render () {
-        let {value,handleAdd,handleMinus,state,fetch} = this.props;
+        let {value,handleAdd,handleMinus} = this.props;
         return (
-            <div>
-            <span>state:{state}</span>
-            <button onClick={fetch}>fetch</button>
-            <span>{value}</span>
+        <div>
+            <span>vaule:{value}</span>
             <button onClick={handleAdd}>+</button>
-            <button onClick={handleMinus}>-</button>
-            </div>
-            )
+            <button onClick={handleMinus}>+</button>
+        </div>
+        ) 
     }
 }
+function mapStateToProps (state) {
+    return {value:state.value}
+}
+function mapDispatchToProps (dispatch) {
+    return {
+        handleAdd : function(){dispatch({type:'ADD'})},
+        handleMinus : function(){dispatch({type:'MINUS'})}
+    }
+}
+var Counter = connect(mapStateToProps,mapDispatchToProps)(CounterUI);
 export default Counter
